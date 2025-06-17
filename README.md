@@ -1,5 +1,3 @@
-
-````md
 # 📁 Filewatch CLI
 
 A lightweight, configurable file-watcher CLI tool — similar to [nodemon] — built with **Node.js**, **TypeScript**, and the native **fs API**. It watches a directory recursively and executes a command when matching files change.

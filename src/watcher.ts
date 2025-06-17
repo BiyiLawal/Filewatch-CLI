@@ -20,9 +20,8 @@ export function startWatcher(options: WatcherOptions) {
     if (verbose) console.log(msg);
   };
 
-  const shouldIgnore = (filePath: string): boolean => {
-    return ignore.some((pattern) => filePath.includes(pattern));
-  };
+  const shouldIgnore = (filePath: string): boolean =>
+    ignore.some((pattern) => filePath.includes(pattern));
 
   const runCommand = () => {
     if (!exec.trim()) return;
@@ -47,12 +46,16 @@ export function startWatcher(options: WatcherOptions) {
     if (seenFiles.has(filePath)) return;
     seenFiles.add(filePath);
 
-    fs.watch(filePath, () => {
-      log(`🔄 File changed: ${filePath}`);
-      debounce(runCommand);
-    });
+    try {
+      fs.watch(filePath, () => {
+        log(`🔄 File changed: ${filePath}`);
+        debounce(runCommand);
+      });
 
-    log(`👀 Watching file: ${filePath}`);
+      log(`👀 Watching file: ${filePath}`);
+    } catch (err) {
+      log(`❌ Failed to watch file: ${filePath}\n${(err as Error).message}`);
+    }
   };
 
   const traverseDirectory = (currentPath: string) => {
@@ -61,25 +64,33 @@ export function startWatcher(options: WatcherOptions) {
       return;
     }
 
+    let items: string[] = [];
     try {
-      const items = fs.readdirSync(currentPath);
+      items = fs.readdirSync(currentPath);
+    } catch (err) {
+      log(
+        `❌ Failed to read directory: ${currentPath}\n${(err as Error).message}`
+      );
+      return;
+    }
 
-      items.forEach((item) => {
-        const fullPath = path.join(currentPath, item);
+    for (const item of items) {
+      const fullPath = path.join(currentPath, item);
+
+      try {
         const stats = fs.statSync(fullPath);
 
         if (stats.isDirectory()) {
           traverseDirectory(fullPath);
         } else if (stats.isFile()) {
-          const ext = path.extname(fullPath).slice(1);
-
+          const ext = path.extname(fullPath).slice(1).toLowerCase();
           if (extensions.includes(ext)) {
             watchFile(fullPath);
           }
         }
-      });
-    } catch (err) {
-      log(`❌ Error reading directory: ${currentPath}\n${(err as Error).message}`);
+      } catch (err) {
+        log(`❌ Error accessing: ${fullPath}\n${(err as Error).message}`);
+      }
     }
   };
 
