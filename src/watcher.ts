@@ -1,3 +1,4 @@
+// filewatch_cli/src/watcher.ts
 import fs from "fs";
 import path from "path";
 import { spawn } from "child_process";

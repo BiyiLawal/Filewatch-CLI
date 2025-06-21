@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+// filewatch_cli/src/bin/index.ts
 console.log("Welcome to Filewatch CLI 🚀");
 
 import { Command } from "commander";
