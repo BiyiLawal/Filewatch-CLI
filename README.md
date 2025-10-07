@@ -4,15 +4,15 @@ A lightweight, configurable file-watcher CLI tool — similar to [nodemon] — b
 
 ---
 
-## ✨ Features
+##  Features
 
-- 📂 Recursive directory watching
-- 🎯 Filter by file extension(s)
-- ⚙️ Custom command execution on change
-- 🙈 Ignore specific paths or folders
-- 🗣️ Verbose mode for detailed logs
-- 🧱 Written in TypeScript with clean architecture
-- ✅ No external dependencies (core Node.js only)
+-  Recursive directory watching
+-  Filter by file extension(s)
+-  Custom command execution on change
+-  Ignore specific paths or folders
+-  Verbose mode for detailed logs
+-  Written in TypeScript with clean architecture
+-  No external dependencies (core Node.js only)
 
 ---
 
@@ -63,7 +63,7 @@ npx ts-node bin/index.ts --dir ./src --ext ts --exec "echo File changed" --verbo
 
 ---
 
-## 📦 NPM Usage (Optional)
+##  NPM Usage (Optional)
 
 To use the CLI globally after building:
 
@@ -105,7 +105,7 @@ filewatch-cli/
 
 ---
 
-## 🧠 Learning Goals
+##  Learning Goals
 
 This project was built to explore:
 
@@ -117,7 +117,7 @@ This project was built to explore:
 
 ---
 
-## 🔌 Planned Enhancements
+##  Planned Enhancements
 
 * [ ] Support for config files (`.filewatchrc`)
 * [ ] Plugin system for custom events
@@ -132,7 +132,7 @@ MIT
 
 ---
 
-## 💡 Author
+##  Author
 
 **\[Biyi Lawal]** – [@BiyiLawal](https://github.com/BiyiLawal)
 
